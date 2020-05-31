@@ -48,15 +48,16 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    'rest_framework'
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 DEV_APPS = [
-    # Install apps
+    'django_extensions'
 ]
 
 PROJECT_APPS = [
-    # Install apps
+    'cornerapps.user',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
@@ -147,3 +148,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+AUTH_USER_MODEL = 'user.User'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
