@@ -73,3 +73,7 @@ class ApiTestCaseBase(APITestCase):
         token = self.get_token_auth(credentials)
 
         return new_user, token, credentials
+
+    def set_client_credentials(self, token):
+        """Set credentials for auth api in client object"""
+        self.client.credentials(HTTP_AUTHORIZATION='Token {}'.format(token))

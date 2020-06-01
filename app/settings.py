@@ -58,6 +58,7 @@ DEV_APPS = [
 
 PROJECT_APPS = [
     'cornerapps.user',
+    'cornerapps.menu',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
