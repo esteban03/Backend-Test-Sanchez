@@ -1,6 +1,6 @@
 from django.urls import reverse
 
-from rest_framework.status import HTTP_200_OK
+from rest_framework.status import HTTP_200_OK, HTTP_403_FORBIDDEN
 
 from shared.tests import ApiTestCaseBase
 from cornerapps.menu.models import Menu, Option
@@ -38,6 +38,18 @@ class TestUpdateMenu(ApiTestCaseBase):
             response.data['options'][0]['description'],
             update_menu['options'][0]['description'],
         )
+
+    def test_update_menu_with_user_unauthorized(self):
+        user, token, credentials = self.generate_employee_user()
+        self.set_client_credentials(token)
+
+        menu, new_options = self.create_menu(user)
+
+        route = reverse('menu:update', kwargs={'id': menu.id})
+
+        response = self.client.put(route, format='json')
+
+        self.assertEqual(response.status_code, HTTP_403_FORBIDDEN)
 
     def create_menu(self, user):
         day_after_today = self.faker.future_date()
