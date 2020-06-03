@@ -1,11 +1,12 @@
-from datetime import datetime
+import datetime
 
 from django.urls import reverse
 
-from rest_framework.status import HTTP_201_CREATED
+from rest_framework.test import APIRequestFactory
 
 from shared.tests import ApiTestCaseBase
 from cornerapps.menu.models import Menu, Option
+from cornerapps.menu.serializers import ChooseMenuSerializer
 
 from faker import Faker
 
@@ -15,10 +16,13 @@ class TestChooseMenu(ApiTestCaseBase):
     def setUp(self):
         self.route = reverse('menu:store.choose')
         self.faker = Faker()
+        self.today_before_11am = datetime.datetime(2020, 6, 22, 10, 0, 0)
 
-    def test_choose_menu(self):
+    def test_unit_serializer_choose_menu(self):
         user, token, credentials = self.generate_employee_user()
         self.set_client_credentials(token)
+
+        factory = APIRequestFactory()
 
         menu, options = self.create_menu(user)
 
@@ -29,13 +33,18 @@ class TestChooseMenu(ApiTestCaseBase):
             'comments': 'Sin aceite'
         }
 
-        response = self.client.post(self.route, choose, format='json')
+        request = factory.post(self.route, choose, format='json')
+        request.user = user
 
-        self.assertEqual(response.status_code, HTTP_201_CREATED)
-        self.assertDictEqual(response.data, choose)
+        serializer = ChooseMenuSerializer(data=choose, context={
+            'request': request,
+            'datetime_now': self.today_before_11am
+        })
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
 
     def create_menu(self, user):
-        today = datetime.today().date()
+        today = self.today_before_11am.date()
 
         options = (
             "Tallerines con helado",

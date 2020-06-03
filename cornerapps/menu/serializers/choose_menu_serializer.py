@@ -1,4 +1,5 @@
-from datetime import date, datetime, time
+from django.utils import timezone
+from datetime import time
 
 from rest_framework import serializers, exceptions
 
@@ -10,18 +11,23 @@ class ChooseMenuSerializer(serializers.Serializer):
     comments = serializers.CharField(max_length=250, required=False)
 
     def validate(self, attrs):
-        """Validate that an option is chosen from today's menu at a valid time"""
+        """Validate that an option is chosen from today's menu"""
 
         option = attrs['option']
 
-        menu_is_today = option.menu.day == date.today()
+        """Time is allowed to be sent in context for testability reasons"""
+        datetime_now = self.context.get('datetime_now')
+        if datetime_now is None:
+            datetime_now = timezone.now()
+
+        menu_is_today = option.menu.day == datetime_now.date()
 
         if not menu_is_today:
             raise exceptions.PermissionDenied(detail="Not the menu of the day")
 
-        is_it_past_11_in_the_morning = datetime.now().time() > time(11, 0, 0)
+        after_11am = datetime_now.time() > time(11, 0, 0)
 
-        if is_it_past_11_in_the_morning:
+        if after_11am:
             raise exceptions.PermissionDenied(detail="Out of time")
 
         return attrs
