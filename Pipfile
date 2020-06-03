@@ -12,6 +12,10 @@ django = "*"
 mysqlclient = "*"
 django-environ = "*"
 djangorestframework = "*"
+slackclient = "*"
+celery = "*"
+redis = "*"
+future = "*"
 
 [requires]
 python_version = "3.8"
