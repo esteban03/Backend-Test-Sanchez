@@ -7,7 +7,7 @@ from rest_framework.exceptions import PermissionDenied
 
 from shared.tests import ApiTestCaseBase
 from cornerapps.menu.models import Menu, Option
-from cornerapps.menu.serializers import ChooseMenuSerializer
+from cornerapps.menu.serializers import StoreChooseMenuSerializer
 
 from faker import Faker
 
@@ -30,6 +30,7 @@ class TestChooseMenu(ApiTestCaseBase):
         option = options.pop()
 
         choose = {
+            'menu': menu.id,
             'option': option.id,
             'comments': 'Sin aceite'
         }
@@ -37,7 +38,7 @@ class TestChooseMenu(ApiTestCaseBase):
         request = factory.post(self.route, choose, format='json')
         request.user = user
 
-        serializer = ChooseMenuSerializer(data=choose, context={
+        serializer = StoreChooseMenuSerializer(data=choose, context={
             'request': request,
             'datetime_now': self.today_before_11am
         })
@@ -54,6 +55,7 @@ class TestChooseMenu(ApiTestCaseBase):
         option = options.pop()
 
         choose = {
+            'menu': menu.id,
             'option': option.id,
             'comments': 'Sin aceite'
         }
@@ -61,7 +63,7 @@ class TestChooseMenu(ApiTestCaseBase):
         request = factory.post(self.route, choose, format='json')
         request.user = user
 
-        serializer = ChooseMenuSerializer(data=choose, context={
+        serializer = StoreChooseMenuSerializer(data=choose, context={
             'request': request,
             'datetime_now': self.today_after_11am
         })

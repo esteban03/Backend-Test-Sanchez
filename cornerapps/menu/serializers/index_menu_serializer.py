@@ -10,5 +10,6 @@ class IndexMenuModelSerializer(serializers.ModelSerializer):
             'id',
             'day',
             'options',
+            'options_choose'
         )
         depth = 1

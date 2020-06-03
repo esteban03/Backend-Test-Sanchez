@@ -3,17 +3,25 @@ from datetime import time
 
 from rest_framework import serializers, exceptions
 
-from cornerapps.menu.models import Choose, Option
+from cornerapps.menu.models import Choose, Option, Menu
 
 
-class ChooseMenuSerializer(serializers.Serializer):
+class StoreChooseMenuSerializer(serializers.Serializer):
+    menu = serializers.PrimaryKeyRelatedField(queryset=Menu.objects.all())
     option = serializers.PrimaryKeyRelatedField(queryset=Option.objects.all())
     comments = serializers.CharField(max_length=250, required=False)
 
     def validate(self, attrs):
-        """Validate that an option is chosen from today's menu"""
+        """
+        Validate that an option is chosen from today's menu
+        Validate that the option belongs to the menu
+        """
 
         option = attrs['option']
+        menu = attrs['menu']
+
+        if option.menu_id != menu.id:
+            raise exceptions.PermissionDenied(detail="The option does not belong on the menu")
 
         """The datetime_now parameter is allowed to be sent in context for testability reasons"""
         datetime_now = self.context.get('datetime_now')
