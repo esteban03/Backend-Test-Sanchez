@@ -3,6 +3,7 @@ import datetime
 from django.urls import reverse
 
 from rest_framework.test import APIRequestFactory
+from rest_framework.exceptions import PermissionDenied
 
 from shared.tests import ApiTestCaseBase
 from cornerapps.menu.models import Menu, Option
@@ -17,10 +18,10 @@ class TestChooseMenu(ApiTestCaseBase):
         self.route = reverse('menu:store.choose')
         self.faker = Faker()
         self.today_before_11am = datetime.datetime(2020, 6, 22, 10, 0, 0)
+        self.today_after_11am = datetime.datetime(2020, 6, 22, 12, 0, 0)
 
-    def test_unit_serializer_choose_menu(self):
+    def test_unit_choose_menu_success(self):
         user, token, credentials = self.generate_employee_user()
-        self.set_client_credentials(token)
 
         factory = APIRequestFactory()
 
@@ -42,6 +43,31 @@ class TestChooseMenu(ApiTestCaseBase):
         })
         serializer.is_valid(raise_exception=True)
         serializer.save()
+
+    def test_unit_choose_menu_after_11am(self):
+        user, token, credentials = self.generate_employee_user()
+
+        factory = APIRequestFactory()
+
+        menu, options = self.create_menu(user)
+
+        option = options.pop()
+
+        choose = {
+            'option': option.id,
+            'comments': 'Sin aceite'
+        }
+
+        request = factory.post(self.route, choose, format='json')
+        request.user = user
+
+        serializer = ChooseMenuSerializer(data=choose, context={
+            'request': request,
+            'datetime_now': self.today_after_11am
+        })
+
+        with self.assertRaises(PermissionDenied):
+            serializer.is_valid(raise_exception=True)
 
     def create_menu(self, user):
         today = self.today_before_11am.date()
