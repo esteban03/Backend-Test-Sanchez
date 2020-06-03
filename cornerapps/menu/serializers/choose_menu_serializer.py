@@ -15,19 +15,19 @@ class ChooseMenuSerializer(serializers.Serializer):
 
         option = attrs['option']
 
-        """Time is allowed to be sent in context for testability reasons"""
+        """The datetime_now parameter is allowed to be sent in context for testability reasons"""
         datetime_now = self.context.get('datetime_now')
         if datetime_now is None:
             datetime_now = timezone.now()
 
-        menu_is_today = option.menu.day == datetime_now.date()
+        menu_of_the_day = option.menu.day == datetime_now.date()
 
-        if not menu_is_today:
-            raise exceptions.PermissionDenied(detail="Not the menu of the day")
+        if not menu_of_the_day:
+            raise exceptions.PermissionDenied(detail="Not menu of the day")
 
-        after_11am = datetime_now.time() > time(11, 0, 0)
+        after_11AM = datetime_now.time() > time(11, 0, 0)
 
-        if after_11am:
+        if after_11AM:
             raise exceptions.PermissionDenied(detail="Out of time")
 
         return attrs
