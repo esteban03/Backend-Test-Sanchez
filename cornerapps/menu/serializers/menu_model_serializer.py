@@ -36,6 +36,7 @@ class MenuModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Menu
         fields = (
+            'id',
             'day',
             'options',
             'created_at',
