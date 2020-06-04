@@ -112,3 +112,25 @@ Pass: example_employee
 ## Postman
 
 Se facilita un [proyecto de postman](https://github.com/esteban03/Backend-Test-Sanchez/blob/master/dump/rest.postman_collection.json) con las apis configuradas para ser testeadas y a modo de documentación.
+
+## Ejemplo de .env configurado
+
+```
+APP_NAME=CornerApp
+APP_TIME_ZONE="UTC"
+APP_KEY="0bx2c9$)=de##ip^l&km4$7p#tiw=6o^spjo)(wmose4a%db$_"
+APP_DEBUG=True
+APP_URL=http://localhost:8000
+
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=cornerapp
+DB_USERNAME=root
+DB_PASSWORD=
+
+CELERY_BROKER_URL=redis://localhost:6378
+CELERY_RESULT_BACKEND=redis://localhost:6378
+
+SLACK_TOKEN_API="xoxb-1184690602240-1160854967714-zRHjFJiGVjREfnvBoMCSs0pT"
+SLACK_CHANNEL_SEND_MESSAGE="cornerapp"
+```
