@@ -1,0 +1,426 @@
+{
+	"info": {
+		"_postman_id": "74cb1d11-95f8-4923-908f-6761fd9aa180",
+		"name": "rest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "admin_example",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{domain}}/user/auth/login",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"user",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "Token {{auth_token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/user/auth/logout",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"user",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create chef user",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "Token {{auth_token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": " example_chef",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": " example_chef",
+							"type": "text"
+						},
+						{
+							"key": "first_name",
+							"value": " example",
+							"type": "text"
+						},
+						{
+							"key": "last_name",
+							"value": " example",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": " chef@example.cl",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{domain}}/user/store/chef",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"user",
+						"store",
+						"chef"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "creeate employee user",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "Token {{auth_token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": " example_employee",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": " example_employee",
+							"type": "text"
+						},
+						{
+							"key": "first_name",
+							"value": " example",
+							"type": "text"
+						},
+						{
+							"key": "last_name",
+							"value": " example",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": " chef@example.cl",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{domain}}/user/store/employee",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"user",
+						"store",
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create menu",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "Token {{auth_token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"day\": \"2020-06-10\",\n\t\"options\": [\n\t\t\"example 1\",\n\t\t\"example 2\",\n\t\t\"example 3\"\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/menu/store",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"menu",
+						"store"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List menus",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "Token {{auth_token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{domain}}/menu/index",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"menu",
+						"index"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update menu",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "Token {{auth_token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"day\": \"2020-06-02\",\n    \"options\": [\n        {\n            \"id\": 3,\n            \"description\": \"example 8\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/menu/update/1",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"menu",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "choose_option_menu",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "Token {{auth_token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"menu\": 5,\n    \"option\": 15,\n    \"comments\": \"example\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/menu/choose",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"menu",
+						"choose"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "view menu",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/menu/0ac0f04b-e762-4baa-8c33-b8775f96c4b3",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"menu",
+						"0ac0f04b-e762-4baa-8c33-b8775f96c4b3"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
