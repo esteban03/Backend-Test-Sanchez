@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
+
 from cornerapps.menu.models import Menu, Option
 
 
@@ -7,6 +9,15 @@ class StoreMenuSerializer(serializers.Serializer):
     options = serializers.ListField(
         child=serializers.CharField(max_length=250)
     )
+
+    def validate_day(self, value):
+
+        exist_menu_for_day = Menu.objects.filter(day=value).exists()
+
+        if exist_menu_for_day:
+            raise serializers.ValidationError(detail="There is a menu for the day {}".format(value))
+
+        return value
 
     def create(self, validated_data):
         auth_user = self.context['request'].user
