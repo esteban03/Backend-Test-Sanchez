@@ -9,8 +9,8 @@ class OptionModelSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'updated_at', 'created_at')
         fields = (
             'id',
+            'menu',
             'description',
             'updated_at',
             'created_at',
         )
-

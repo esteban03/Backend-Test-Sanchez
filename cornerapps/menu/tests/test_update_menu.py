@@ -1,6 +1,6 @@
 from django.urls import reverse
 
-from rest_framework.status import HTTP_200_OK, HTTP_403_FORBIDDEN
+from rest_framework.status import HTTP_200_OK, HTTP_403_FORBIDDEN, HTTP_201_CREATED
 
 from shared.tests import ApiTestCaseBase
 from cornerapps.menu.models import Menu, Option
@@ -19,18 +19,20 @@ class TestUpdateMenu(ApiTestCaseBase):
 
         menu, options = self.create_menu(user)
 
-        route = reverse('menu:update', kwargs={'id': menu.id})
+        route = reverse('menu:update', kwargs={
+            'id': menu.id
+        })
 
         day_after_today_update = str(self.faker.future_date())
         update_menu = {'day': day_after_today_update, 'options': []}
 
         for option in options:
             update_menu['options'].append({
-                'id': option.pk,
+                'id': option.id,
                 'description': 'update food',
             })
 
-        response = self.client.put(route, update_menu, format='json')
+        response = self.client.patch(route, update_menu, format='json')
 
         self.assertEqual(response.status_code, HTTP_200_OK)
         self.assertEqual(response.data['day'], day_after_today_update)
@@ -50,6 +52,23 @@ class TestUpdateMenu(ApiTestCaseBase):
         response = self.client.put(route, format='json')
 
         self.assertEqual(response.status_code, HTTP_403_FORBIDDEN)
+
+    def test_add_new_option(self):
+        user, token, credentials = self.generate_chef_user()
+        self.set_client_credentials(token)
+
+        menu, new_options = self.create_menu(user)
+
+        route = reverse('menu:store.option')
+
+        new_option = {
+            'menu': menu.id,
+            'description': 'new option',
+        }
+
+        response = self.client.post(route, new_option, format='json')
+
+        self.assertEqual(response.status_code, HTTP_201_CREATED)
 
     def create_menu(self, user):
         day_after_today = self.faker.future_date()

@@ -4,6 +4,7 @@ from cornerapps.menu.models import Menu
 
 
 class Option(BaseAppModel):
+
     menu = models.ForeignKey(
         Menu,
         on_delete=models.CASCADE,
