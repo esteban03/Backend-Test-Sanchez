@@ -11,5 +11,5 @@ class Menu(BaseAppModel):
 
     day = models.DateField()
 
-    class Meta:
+    class Meta(BaseAppModel.Meta):
         db_table = 'menus'

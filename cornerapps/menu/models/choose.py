@@ -22,3 +22,6 @@ class Choose(BaseAppModel):
     )
 
     comments = models.CharField(max_length=250, blank=True, null=True)
+
+    class Meta(BaseAppModel.Meta):
+        pass

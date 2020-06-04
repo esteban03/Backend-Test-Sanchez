@@ -11,3 +11,6 @@ class Option(BaseAppModel):
         related_name='options'
     )
     description = models.CharField(max_length=250)
+
+    class Meta(BaseAppModel.Meta):
+        pass
