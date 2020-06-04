@@ -1,4 +1,8 @@
+from app.settings import env
+
 from django.utils import timezone
+from django.urls import reverse
+
 from celery import shared_task
 from cornerapps.menu.models import Menu
 
@@ -15,8 +19,11 @@ def send_reminder_menu():
     if menu_today is None:
         return
 
-    # TODO: implement route with reverse url django
-    link_menu = "https://nora.cornershop.io/menu/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-    message = "Hola! recuerden elegir el menu de hoy antes de las 11AM. Pueden ver el menu aqui {}".format(link_menu)
+    link_menu = "{domain}{path}".format(
+        domain=env('APP_URL'),
+        path=reverse('menu:view', kwargs={'id': menu_today.id})
+    )
+
+    message = "Hola! recuerden elegir el menu de hoy antes de las 11AM. Lo pueden ver aqui {}".format(link_menu)
 
     notifier.send_message(message=message)
