@@ -15,12 +15,12 @@
 					"formdata": [
 						{
 							"key": "username",
-							"value": "admin",
+							"value": "example_chef",
 							"type": "text"
 						},
 						{
 							"key": "password",
-							"value": "admin_example",
+							"value": "example_chef",
 							"type": "text"
 						}
 					]
@@ -335,7 +335,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"day\": \"2020-06-02\",\n    \"options\": [\n        {\n            \"id\": 3,\n            \"description\": \"example 8\"\n        }\n    ]\n}",
+					"raw": "{\n    \"day\": \"2020-06-02\",\n    \"options\": [\n        {\n            \"id\": \"75ec15ea-cab2-452d-bd62-58387217d16c\",\n            \"description\": \"update\"\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -343,14 +343,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{domain}}/menu/update/1",
+					"raw": "{{domain}}/menu/update/63773cdb-cb84-4ef8-96b3-a2bb2897deac",
 					"host": [
 						"{{domain}}"
 					],
 					"path": [
 						"menu",
 						"update",
-						"1"
+						"63773cdb-cb84-4ef8-96b3-a2bb2897deac"
 					]
 				}
 			},
@@ -416,6 +416,54 @@
 					"path": [
 						"menu",
 						"0ac0f04b-e762-4baa-8c33-b8775f96c4b3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add option menu",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "Token {{auth_token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"menu\": \"63773cdb-cb84-4ef8-96b3-a2bb2897deac\",\n\t\"description\": \"Nueva opcion\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/menu/option/store",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"menu",
+						"option",
+						"store"
 					]
 				}
 			},
