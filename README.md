@@ -111,4 +111,4 @@ Pass: example_employee
 
 ## Postman
 
-Se facilita un [proyecto de postman](https://github.com/esteban03/Backend-Test-Sanchez/blob/master/dump/rest.postman_collection.json) con las apis configuradas para ser testeadas.
+Se facilita un [proyecto de postman](https://github.com/esteban03/Backend-Test-Sanchez/blob/master/dump/rest.postman_collection.json) con las apis configuradas para ser testeadas y a modo de documentación.
