@@ -16,6 +16,7 @@ slackclient = "*"
 celery = "*"
 redis = "*"
 future = "*"
+django-filter = "*"
 
 [requires]
 python_version = "3.8"
