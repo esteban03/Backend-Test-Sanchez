@@ -6,12 +6,12 @@ from django.urls import reverse
 from celery import shared_task
 from cornerapps.menu.models import Menu
 
-from cornerapps.menu.implementations import SlackNotifier as Notifier
+from cornerapps.menu.factories import NotifierFactory
 
 
 @shared_task
 def send_reminder_menu():
-    notifier = Notifier()
+    notifier = NotifierFactory.create()
 
     today = timezone.now().date()
     menu_today = Menu.objects.filter(day=today).first()

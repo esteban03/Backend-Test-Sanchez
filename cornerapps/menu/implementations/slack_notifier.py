@@ -1,5 +1,3 @@
-from app.settings import env
-
 from slack import WebClient
 from slack.errors import SlackApiError
 
@@ -9,9 +7,9 @@ from cornerapps.menu.interfaces import NotifierInterface
 class SlackNotifier(NotifierInterface):
     """Send message to channel Slack"""
 
-    def __init__(self):
-        self.__client = WebClient(token=env("SLACK_TOKEN_API"))
-        self.__chanel = env("SLACK_CHANNEL_SEND_MESSAGE")
+    def __init__(self, token_api, chanel):
+        self.__client = WebClient(token_api)
+        self.__chanel = chanel
 
     def send_message(self, message):
         try:
