@@ -12,10 +12,7 @@ class SlackNotifier(NotifierInterface):
         self.__chanel = chanel
 
     def send_message(self, message):
-        try:
-            response = self.__client.chat_postMessage(
-                channel=self.__chanel,
-                text=message
-            )
-        except SlackApiError as e:
-            assert e.response["error"]
+        response = self.__client.chat_postMessage(
+            channel=self.__chanel,
+            text=message
+        )
